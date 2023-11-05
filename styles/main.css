@@ -25,4 +25,7 @@ hr{
 footer {visibility: hidden;}
 header {visibility: hidden;}
 
-.viewerBadge_container__r5tak{visibility: hidden;}
+a[rel='noopener noreferrer'][href='https://streamlit.io/cloud']
+{
+    visibility: hidden;
+}
