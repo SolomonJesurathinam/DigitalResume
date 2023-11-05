@@ -22,10 +22,10 @@ SOCIAL_MEDIA={
     "Android":"https://play.google.com/store/apps/developer?id=Solomon+Jesurathinam"
 }
 PROJECTS={
-    "🥇 ML Projects":"https://solomonjesurathinam-mlprojects-homepage-5sdkej.streamlit.app/",
-    "📷 OPEN CV":"https://solomonjesurathinam-opencvprojects-homepage-1ujplw.streamlit.app/",
-    "📓 Ipynb Converter":"https://ipynbconverter.streamlit.app/",
-    "👨‍🦱 Saloon Management":"https://saloonmanagement.streamlit.app/"
+    "🥇 Machine Learninig Projects":"https://solomonjesurathinam-mlprojects-homepage-5sdkej.streamlit.app/",
+    "📷 OPEN CV Projects":"https://solomonjesurathinam-opencvprojects-homepage-1ujplw.streamlit.app/",
+    "📓 Ipynb Converter - Converts Juyter ipynb format to pdf":"https://ipynbconverter.streamlit.app/",
+    "👨‍🦱 Saloon Management - POS":"https://saloonmanagement.streamlit.app/"
 }
 
 st.set_page_config(page_title=PAGE_TITLE,page_icon=PAGE_ICON)
@@ -95,7 +95,7 @@ st.subheader("Work History")
 st.write("---")
 
 #--- JOB 1 ---
-st.write("***Test Lead | Accenture***")
+st.write("💼","***Test Lead | Accenture***")
 st.write("07/2017 - Present")
 st.write("""
 - Implementation of Page Object Model automation framework in Selenium using Java
@@ -110,7 +110,7 @@ release for testing
 
 #--- JOB 2 ---
 st.write("#")
-st.write("***Senior Quality analyst | Anjanasoft Solutions***")
+st.write("⚓","***Senior Quality analyst | Anjanasoft Solutions***")
 st.write("11/2013 - 07/2017")
 st.write("""
 - Executed End to End Adhoc testing in Functional and Regression regions.
@@ -120,3 +120,9 @@ st.write("""
 team to deliver end-to-end quality in our products
 """)
 
+# --- Projects & Accomplishments ---
+st.write("#")
+st.subheader("Projects & Accomplishments")
+st.write("---")
+for project, link in PROJECTS.items():
+    st.write(f"[{project}]({link})")
