@@ -14,13 +14,12 @@ PAGE_TITLE = "Digital CV | Solomon J"
 PAGE_ICON = ":wave:"
 NAME = "Solomon Jesurathinam"
 DESCRIPTION = """
-Automation Engineer, Functional Tester, Test Lead, Data Science, Android Development
+Lead SDET, Functional Tester, Machine Learning, Android Development
 """
-EMAIL = "solomon258@gmail.com"
 SOCIAL_MEDIA={
     "LinkedIn":"https://www.linkedin.com/in/solomon-jesurathinam-a3a80723/",
     "Github":"https://github.com/SolomonJesurathinam",
-    "Android":"https://play.google.com/store/apps/developer?id=Solomon+Jesurathinam"
+    "Android":"https://play.google.com/store/apps/developer?id=Solomon+J&hl=en_IN"
 }
 PROJECTS={
     "🥇 Machine Learninig Projects":"https://solomonjesurathinam-mlprojects-homepage-5sdkej.streamlit.app/",
@@ -68,31 +67,31 @@ for index, (platform,link) in enumerate(SOCIAL_MEDIA.items()):
 st.write("#")
 st.subheader("Professional Experience & Qualifications")
 st.write("""
-- 🔅 9.10 years of IT experience with prime focus in Automation testing
-- 🔅 Strong knowledge in Test Automation using Tools like Java, Selenium WebDriver, Maven, Tosca
-- 🔅 Strong Knowledge in creating hybrid frameworks from scratch using TestNG, Cucumber and Data driven.
-- 🔅 Expertise in functional testing the application
-- 🔅 Experience in QA Agile testing (Scrum) with extensive knowledge of agile
-- 🔅 Specialized in different Testing Methodologies – Smoke, Regression, End to End Flow & Ad-hoc
+- 🔅 11+ years of IT experience with a primary focus on Automation Testing and QA leadership
+- 🔅 Expertise in Selenium WebDriver with Java, Python (Pytest), TestNG, BDD (Cucumber), and Tosca
+- 🔅 Strong experience in designing and implementing custom automation frameworks from scratch (POM, Hybrid)
+- 🔅 Skilled in Functional, Smoke, Regression, End-to-End Flow, and Ad-hoc Testing
+- 🔅 Excellent understanding of Agile/Scrum methodologies with real-time QA Agile Testing involvement
+- 🔅 Proven track record of leading automation teams, conducting trainings, and driving testing best practices
 """)
 
 st.write("#")
 st.subheader("Personal Developments & Experiences")
 st.write("""
-- 🥷 Have completed DataScience course and have intermediate knowledge on Machine learning
-- 🥷 Created a couple of Machine learning projects
-- 🥷 Have intermediate knowledge on Android development
-- 🥷 Created a couple of Android applications and they are available in playstore
-- 🥷 Intermediate experience in Streamlit framework for creating web applications
+- 🥷 Completed a Data Science course with intermediate knowledge of Machine Learning
+- 🥷 Built several ML projects using Python (regression, classification, decision trees, etc.)
+- 🥷 Developed and published Android applications (available on Google Play Store)
+- 🥷 Intermediate proficiency in using Streamlit for building data-driven web apps
 """)
 
 st.write("#")
 st.subheader("Hard Skills")
 st.write("""
 - 💻 Programming: Java, Python, SQL
-- ⚙️ Selenium with Java (WebDriver)
-- ♻️ ML modelling (Logistic/linear regression, decision trees, tensorflow)
-- 📱 Android Development
+- ⚙️ Tools & Frameworks: Selenium (Java), Pytest, TestNG, Cucumber (BDD), Tosca, Rest Assured
+- 🔧 DevOps & Utilities: Git, GitLab, Jira, HP ALM, Azure DevOps
+- ♻️ ML Modeling: Logistic/Linear Regression, Decision Trees, TensorFlow
+- 📱 Android App Development (Java/XML)
 """)
 
 # --- WORK HISTORY ---
@@ -100,35 +99,41 @@ st.write("#")
 st.subheader("Work History")
 st.write("---")
 
-#--- JOB 1 ---
-st.write("💼","***Test Lead | Accenture***")
-st.write("07/2017 - Present")
+# JOB 1
+st.write("💼", "**Principal Software Engineer | Automation Test Engineer** – Maveric Systems Limited")
+st.write("📅 Dec 2023 – Present | 📍 Chennai, TN")
 st.write("""
-- Implementation of Page Object Model automation framework in Selenium using Java
-- Managing and Mentoring Offshore team of 6 by assigning task and taking responsibilities on task
-ownership of each sprint
-- Engaging in all agile ceremonies.
-- Involved in test estimation, test planning for automation project, Defect review meeting, Sign off
-release for testing
-- Reviewed all test cases and test scripts for quality and identified additional areas to review
-- Creating weekly status reports and daily status reports on the test automation progress.
+- Designed and implemented Selenium with Java BDD framework for Natwest Group client
+- Developed Python-based Pytest automation framework for internal projects
+- Built TestNG framework for internal applications
+- Mentored and led a team of 8 automation engineers; conducted regular trainings
+- Created custom automation utilities that improved delivery speed and quality
+- Reviewed automation code and ensured adherence to industry best practices
 """)
 
-#--- JOB 2 ---
-st.write("#")
-st.write("⚓","***Senior Quality analyst | Anjanasoft Solutions***")
-st.write("11/2013 - 07/2017")
+# JOB 2
+st.write("💼", "**Test Lead** – Accenture")
+st.write("📅 Jul 2017 – Dec 2023 | 📍 Chennai, TN")
 st.write("""
-- Executed End to End Adhoc testing in Functional and Regression regions.
-- Interacting with Onsite Manager for preparing the test result and documentation on daily basis
-- Trained freshers for the testing team and helped the team in floor for any clarifications
-- Collaborated effectively with the other Development Managers, Product Managers, and Operations
-team to deliver end-to-end quality in our products
+- Created Selenium with Java TestNG POM framework for Bank of America projects
+- Involved in automation planning, scripting, execution, and reporting for sprint releases
+- Managed a 6-member team of automation engineers and provided technical mentorship
+- Delivered internal utilities to accelerate automation processes
+- Conducted trainings for new joiners in automation tools and frameworks
 """)
 
-# --- Projects & Accomplishments ---
+# JOB 3
+st.write("💼", "**Senior Quality Analyst** – Anjana Software Solutions")
+st.write("📅 Nov 2013 – Jul 2017 | 📍 Chennai, TN")
+st.write("""
+- Performed manual and automation testing for Farmers client applications
+- Led SIT and regression testing initiatives to ensure high-quality releases
+- Automated regression test cases to streamline repeatable test scenarios
+- Collaborated with product managers and development teams for requirements and feedback
+- Trained junior QA engineers on testing processes and domain knowledge
+""")
+
+# --- INTERESTS ---
 st.write("#")
-st.subheader("Projects & Accomplishments")
-st.write("---")
-for project, link in PROJECTS.items():
-    st.write(f"[{project}]({link})")
+st.subheader("Interests")
+st.write("🎮 PC Gaming | 🏏 Cricket | ⚽ Football | 🏸 Badminton | 🤖 Machine Learning | 📱 Android Development")

@@ -1,12 +1,16 @@
 [theme]
-#Primary accent color
-primaryColor = "#d33682"
+base = "dark"
+primaryColor = "#d33682"               # Stylish magenta
+backgroundColor = "#002b36"            # Solarized dark background
+textColor = "#ffffff"                  # Bright white text
+font = "sans serif"                    # Clean, modern look
+borderColor = "#3a4b50"                # Soft contrast borders
+borderRadius = 0.5  
+linkColor="darkOrchid"                  
 
-#Background color
-backgroundColor = "#002b36"
-
-#Background color for sidebar and widgets
-secondaryBackgroundcolor = "#586e75"
-
-#for all test
-textColor = "#fff"
+[theme.sidebar]
+backgroundColor = "#1e3a40"            # Teal-gray for sidebar
+textColor = "#f8f8f2"                  # Slightly softer white for sidebar
+font = "sans serif"                    # Match body font
+borderColor = "#4a5b60"                # Sidebar border
+borderRadius = 0.5                     # Keep consistency

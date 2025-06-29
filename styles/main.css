@@ -2,15 +2,9 @@
 
 *{font-family:'Readex Pro';}
 
-a{
-    text-decoration:none;
-    color:white !important;
-    font-weight: 500;
-}
-
 a:hover{
     color: #d33682 !important;
-    test-decoration: none;
+    text-decoration: none;
 }
 
 ul{list-style-type:none;}
@@ -23,7 +17,7 @@ hr{
 
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
-header {visibility: hidden;}
+/* header {visibility: hidden;} */
 
 .viewerBadge_container__r5tak {
   visibility: hidden;
