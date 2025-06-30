@@ -20,11 +20,22 @@ chatbot_page = st.Page(
     icon="🖥️"
 )
 
+crop_page = st.Page(
+    page="views/Crop Recommendation.py",
+    title="Crop Recommendation",
+    icon="🌱"
+)
+
+fifa_22 = st.Page(
+    page="views/FIFA_22_Simulator.py",
+    title="FIFA 22 SIMULATOR"
+)
+
 # --- NAVIGATION ---
 pg = st.navigation(
     {
         "Info":[about_page],
-        "Projects":[ml_project_page,chatbot_page]
+        "Projects":[ml_project_page,chatbot_page,crop_page,fifa_22]
     }
 )
 
