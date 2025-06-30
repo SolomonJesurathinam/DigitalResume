@@ -28,7 +28,8 @@ crop_page = st.Page(
 
 fifa_22 = st.Page(
     page="views/FIFA_22_Simulator.py",
-    title="FIFA 22 SIMULATOR"
+    title="FIFA 22 SIMULATOR",
+    icon="⚽"
 )
 
 # --- NAVIGATION ---

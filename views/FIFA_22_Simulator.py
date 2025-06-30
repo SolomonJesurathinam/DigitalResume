@@ -5,60 +5,39 @@ from operator import add, sub
 import os
 import streamlit as st
 import base64
+from pathlib import Path
 
-st.set_page_config(initial_sidebar_state="auto",page_title="FIFA WORLD CUP 22 SIMULATOR",page_icon="⚽")
+current_dir = Path(__file__).parent if "__file__" in locals() else Path.cwd()
+css_file = current_dir.parent / "styles" / "main.css"
+
+with open(css_file) as f:
+    st.markdown("<style>{}</style>".format(f.read()),unsafe_allow_html=True)
+
+
 ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
-#Background Image
-def set_bg_hack(main_bg):
-    main_bg_ext = "png"
-    st.markdown(
-         f"""
-         <style>
-         .stApp {{
-             background: url(data:image/{main_bg_ext};base64,{base64.b64encode(open(main_bg, "rb").read()).decode()});
-             background-size: cover
-         }}
-         </style>
-         """,
-         unsafe_allow_html=True
-     )
-
-main_bg = os.path.join(ROOT_DIR,'data',"Upload.png")
-set_bg_hack(main_bg)
-
-def sidebar_bg(side_bg):
-   side_bg_ext = 'png'
-   st.markdown(
-      f"""
-      <style>
-      [data-testid="stSidebar"] > div:first-child {{
-          background: url(data:image/{side_bg_ext};base64,{base64.b64encode(open(side_bg, "rb").read()).decode()});
-      }}
-      </style>
-      """,
-      unsafe_allow_html=True,
-      )
-side_bg = os.path.join(ROOT_DIR,'data',"SideBar.png")
-sidebar_bg(side_bg)
 
 st.header("FIFA 22 WORLD CUP SIMULATOR ⚽")
 
-with st.sidebar.expander("Project Links:",expanded=True):
-    st.write("[Github](https://github.com/SolomonJesurathinam/MLProjects/blob/master/pages/%E2%9A%92%20Project%20-%20FIFA%2022%20World%20Cup%20Simulator.py)")
+with st.sidebar.expander("About This Simulator",expanded=True):
+    st.write('''This interactive FIFA World Cup 2022 simulator uses machine learning to predict match outcomes based on FIFA team stats like offense, defense, midfield, and goalkeeper ratings.''')
+    st.write('''Group Stage: Simulates all matches multiple times to rank teams by points.''')
+    st.write("Knockout Stage: Predicts winners until the final using a separate model.")
+    st.write('''Randomness Slider: Adds unpredictability to reflect real-world match variance.''')
+    st.write('''🔄 Run it multiple times to see how results can change!''')
 
 sim_count = st.slider("Simulation Count",min_value=10,max_value=100,help="Number of times each match is simultated to get the result")
 random_value = st.slider("Randomness Value",min_value=2,max_value=10,help="Affects team performance value (positive & negative)")
 
 if st.button("Simulate FIFA WORLD CUP 2022"):
     ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
-    league = os.path.join(ROOT_DIR,'data',"League_Predictions.pkl")
-    knockout = os.path.join(ROOT_DIR,'data',"KnockOut_Predictions.pkl")
-    colNames = os.path.join(ROOT_DIR,'data',"col_names.pkl")
+    league = os.path.join(ROOT_DIR,'data/fifa',"League_Predictions.pkl")
+    knockout = os.path.join(ROOT_DIR,'data/fifa',"KnockOut_Predictions.pkl")
+    colNames = os.path.join(ROOT_DIR,'data/fifa',"col_names.pkl")
     league_model = joblib.load(league)
     knockout_model = joblib.load(knockout)
     col_names = joblib.load(colNames)
 
-    excel_path = os.path.join(ROOT_DIR,'data',"FifaRankings.csv")
+    excel_path = os.path.join(ROOT_DIR,'data/fifa',"FifaRankings.csv")
     rankings = pd.read_csv(excel_path)
 
     def randomness(value):
@@ -135,24 +114,29 @@ if st.button("Simulate FIFA WORLD CUP 2022"):
         dict = {Team1:Team1_points,Team2:Team2_points,Team3:Team3_points,Team4:Team4_points}
         grp_winners = pd.DataFrame(list(dict.items()),columns=['Team','Points']).sort_values('Points',ascending=False)[0:2]['Team']
         return grp_winners
+    
+    col1, col2, col3  = st.columns(3)
 
-    Grp1A, Grp2A = tuple(League_round("Qatar", "Ecuador","Senegal","Netherlands"))
-    table("Group A Winners",[Grp1A, Grp2A])
-    Grp1B, Grp2B = tuple(League_round("England","IR Iran", "USA", "Wales"))
-    table("Group B Winners", [Grp1B, Grp2B])
-    Grp1C, Grp2C = tuple(League_round("Argentina","Saudi Arabia", "Mexico","Poland"))
-    table("Group C Winners", [Grp1C, Grp2C])
-    Grp1D, Grp2D = tuple(League_round("France","Australia","Denmark","Tunisia"))
-    table("Group D Winners", [Grp1D, Grp2D])
-    Grp1E, Grp2E = tuple(League_round("Spain","Costa Rica","Germany","Japan"))
-    table("Group E Winners", [Grp1E, Grp2E])
-    Grp1F, Grp2F = tuple(League_round("Belgium","Canada","Morocco","Croatia"))
-    table("Group F Winners", [Grp1F, Grp2F])
-    Grp1G, Grp2G = tuple(League_round("Brazil","Serbia","Switzerland","Cameroon"))
-    table("Group G Winners", [Grp1G, Grp2G])
-    Grp1H, Grp2H = tuple(League_round("Portugal","Ghana","Uruguay","Korea Republic"))
-    table("Group H Winners", [Grp1H, Grp2H])
-    #table("Round of 16",[Grp1A,Grp2A,Grp1B,Grp2B,Grp1C,Grp2C,Grp1D,Grp2D,Grp1E,Grp2E,Grp1F,Grp2F,Grp1G,Grp2G,Grp1H,Grp2H])
+    with col1:
+        Grp1A, Grp2A = tuple(League_round("Qatar", "Ecuador","Senegal","Netherlands"))
+        table("Group A Winners",[Grp1A, Grp2A])
+        Grp1B, Grp2B = tuple(League_round("England","IR Iran", "USA", "Wales"))
+        table("Group B Winners", [Grp1B, Grp2B])
+        Grp1C, Grp2C = tuple(League_round("Argentina","Saudi Arabia", "Mexico","Poland"))
+        table("Group C Winners", [Grp1C, Grp2C])
+    with col2:    
+        Grp1D, Grp2D = tuple(League_round("France","Australia","Denmark","Tunisia"))
+        table("Group D Winners", [Grp1D, Grp2D])
+        Grp1E, Grp2E = tuple(League_round("Spain","Costa Rica","Germany","Japan"))
+        table("Group E Winners", [Grp1E, Grp2E])
+        Grp1F, Grp2F = tuple(League_round("Belgium","Canada","Morocco","Croatia"))
+        table("Group F Winners", [Grp1F, Grp2F])
+
+    with col3:    
+        Grp1G, Grp2G = tuple(League_round("Brazil","Serbia","Switzerland","Cameroon"))
+        table("Group G Winners", [Grp1G, Grp2G])
+        Grp1H, Grp2H = tuple(League_round("Portugal","Ghana","Uruguay","Korea Republic"))
+        table("Group H Winners", [Grp1H, Grp2H])
 
     def knockout_model_result(Team1, Team2):
         count_0=0
@@ -170,41 +154,54 @@ if st.button("Simulate FIFA WORLD CUP 2022"):
 
     st.subheader("Round of 16")
 
-    W49 = knockout_model_result(Grp1A, Grp2B)
-    table((Grp1A + " VS " + Grp2B), [W49])
-    W50 = knockout_model_result(Grp1C, Grp2D)
-    table((Grp1C + " VS " + Grp2D), [W50])
-    W51 = knockout_model_result(Grp1B, Grp2A)
-    table((Grp1B + " VS " + Grp2A), [W51])
-    W52 = knockout_model_result(Grp1D, Grp2C)
-    table((Grp1D + " VS " + Grp2C), [W52])
-    W53 = knockout_model_result(Grp1E, Grp2F)
-    table((Grp1E + " VS " + Grp2F), [W53])
-    W54 = knockout_model_result(Grp1G, Grp2H)
-    table((Grp1G + " VS " + Grp2H), [W54])
-    W55 = knockout_model_result(Grp1F, Grp2E)
-    table((Grp1F + " VS " + Grp2E), [W55])
-    W56 = knockout_model_result(Grp1H, Grp2G)
-    table((Grp1H + " VS " + Grp2G), [W56])
+    col4, col5, col6 = st.columns(3)
+
+    with col4:
+        W49 = knockout_model_result(Grp1A, Grp2B)
+        table((Grp1A + " VS " + Grp2B), [W49])
+        W50 = knockout_model_result(Grp1C, Grp2D)
+        table((Grp1C + " VS " + Grp2D), [W50])  
+        W51 = knockout_model_result(Grp1B, Grp2A)
+        table((Grp1B + " VS " + Grp2A), [W51])
+
+    with col5:    
+        W52 = knockout_model_result(Grp1D, Grp2C)
+        table((Grp1D + " VS " + Grp2C), [W52])
+        W53 = knockout_model_result(Grp1E, Grp2F)
+        table((Grp1E + " VS " + Grp2F), [W53])
+        W54 = knockout_model_result(Grp1G, Grp2H)
+        table((Grp1G + " VS " + Grp2H), [W54])
+
+    with col6:    
+        W55 = knockout_model_result(Grp1F, Grp2E)
+        table((Grp1F + " VS " + Grp2E), [W55])
+        W56 = knockout_model_result(Grp1H, Grp2G)
+        table((Grp1H + " VS " + Grp2G), [W56])
 
     st.subheader("Round of 8 - Quarter-Finals")
 
 
-    W57 = knockout_model_result(W49, W50)
-    table((W49 + " VS " + W50), [W57])
-    W58 = knockout_model_result(W53, W54)
-    table((W53 + " VS " + W54), [W58])
-    W59 = knockout_model_result(W51, W52)
-    table((W51 + " VS " + W52), [W59])
-    W60 = knockout_model_result(W55, W56)
-    table((W55 + " VS " + W56), [W60])
+    col7, col8 = st.columns(2)
+    with col7:
+        W57 = knockout_model_result(W49, W50)
+        table((W49 + " VS " + W50), [W57])
+        W58 = knockout_model_result(W53, W54)
+        table((W53 + " VS " + W54), [W58])
+    with col8:    
+        W59 = knockout_model_result(W51, W52)
+        table((W51 + " VS " + W52), [W59])
+        W60 = knockout_model_result(W55, W56)
+        table((W55 + " VS " + W56), [W60])
 
     st.subheader("Semi-Finals")
 
-    final1 = knockout_model_result(W57,W58)
-    table((W57 + " VS " + W58), [final1])
-    final2 = knockout_model_result(W59,W60)
-    table((W59 + " VS " + W60), [final2])
+    col9, col10 = st.columns(2)
+    with col9:
+        final1 = knockout_model_result(W57,W58)
+        table((W57 + " VS " + W58), [final1])
+    with col10:    
+        final2 = knockout_model_result(W59,W60)
+        table((W59 + " VS " + W60), [final2])
 
     st.header("Finals")
     final = knockout_model_result(final1,final2)

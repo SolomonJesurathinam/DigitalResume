@@ -2,11 +2,17 @@ import streamlit as st
 import pandas as pd
 import os
 import pickle
-#st.sidebar.write("Details about Project")
+from pathlib import Path
+
+current_dir = Path(__file__).parent if "__file__" in locals() else Path.cwd()
+css_file = current_dir.parent / "styles" / "main.css"
+
+with open(css_file) as f:
+    st.markdown("<style>{}</style>".format(f.read()),unsafe_allow_html=True)
 
 #read excel
 ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
-model_path = os.path.join(ROOT_DIR,'data',"gaussian_model.pkl")
+model_path = os.path.join(ROOT_DIR,'data/crop',"gaussian_model.pkl")
 
 st.set_page_config(initial_sidebar_state="auto",page_title="Crop Recommendation",page_icon="🌱")
 st.header("Crop Recommendation🌱")
