@@ -1,6 +1,13 @@
 import streamlit as st
 from groq import Groq
 import re
+from pathlib import Path
+
+current_dir = Path(__file__).parent if "__file__" in locals() else Path.cwd()
+css_file = current_dir.parent / "styles" / "main.css"
+
+with open(css_file) as f:
+    st.markdown("<style>{}</style>".format(f.read()),unsafe_allow_html=True)
 
 st.title("Chat Bot")
 
@@ -19,25 +26,34 @@ if "last_selected_model" not in st.session_state:
     st.session_state["last_selected_model"] = st.session_state["groq_model"]      
 
 
-col1, col2 = st.columns([3,1])
+model = st.sidebar.selectbox(
+    "Select Model",
+    options=["llama3-8b-8192", "llama3-70b-8192", "deepseek-r1-distill-llama-70b","qwen/qwen3-32b"],  # add your supported models here
+    index=["llama3-8b-8192", "llama3-70b-8192", "deepseek-r1-distill-llama-70b","qwen/qwen3-32b"].index(st.session_state["groq_model"])
+)
 
-with col1:
-    model = st.selectbox(
-        "Select Model",
-        options=["llama3-8b-8192", "llama3-70b-8192", "deepseek-r1-distill-llama-70b","qwen/qwen3-32b","meta-llama/llama-prompt-guard-2-86m"],  # add your supported models here
-        index=["llama3-8b-8192", "llama3-70b-8192", "deepseek-r1-distill-llama-70b","qwen/qwen3-32b","meta-llama/llama-prompt-guard-2-86m"].index(st.session_state["groq_model"])
-    )
-
-# If the selected model changed, clear chat
 if model != st.session_state["last_selected_model"]:
     st.session_state.messages = []
     st.session_state["last_selected_model"] = model
 
 st.session_state["groq_model"] = model
 
-with col2:
-    if st.button("Clear Chat"):
-        st.session_state.messages = []    
+if st.sidebar.button("Clear Chat",type="primary"):
+    st.session_state.messages = []    
+
+with st.sidebar:
+    st.header("🤖 ChatBot Info")
+    st.markdown("""
+    **Welcome to the ChatBot!**
+
+    - Powered by **Groq API** using `llama3-8b-8192` and other LLaMA models.
+    - Choose different models from the dropdown above.
+    - Click **Clear Chat** to reset the conversation.
+
+    ---
+    **Tip**: Keep your prompts clear for best results!
+    """)
+
 
 #display chat messages from history
 for message in st.session_state.messages:
@@ -49,7 +65,7 @@ for message in st.session_state.messages:
             st.markdown(message["content"])
 
 #React to user input
-prompt = st.chat_input("what is up")
+prompt = st.chat_input("What's up")
 if prompt:
 
     with st.chat_message("user"):
@@ -96,11 +112,6 @@ if prompt:
                     st.markdown(think_content)
 
         message_placeholder.markdown(visible_content)
-
-        print("RAW:", repr(full_response))
-        print("THINK:", repr(think_content))
-        print("VISIBLE:", repr(visible_content))
-
 
     st.session_state.messages.append({"role": "assistant", "content": visible_content, "think": think_content})    
 
