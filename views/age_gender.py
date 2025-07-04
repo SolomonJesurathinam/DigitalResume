@@ -17,8 +17,8 @@ gender_model = load_model(gender_path)
 age_model = load_model(age_path)
 
 def load_and_preprocess_image(image_path):
-    img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)  # Read in grayscale
-    img = cv2.resize(img, (48, 48))                     # Resize to 48x48
+    # img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)  # Read in grayscale
+    img = cv2.resize(image_path, (48, 48))                     # Resize to 48x48
     img = img.astype('float32') / 255.0                 # Normalize
     img = img.reshape(1, 48, 48, 1)                      # Add batch and channel dims
     return img
@@ -62,7 +62,6 @@ def radio_functiom(input_image):
 radio_values = st.radio(label="Prediction",options= ("Upload a picture","Photo from Camera"))
 if radio_values == "Upload a picture":
     input_image = st.file_uploader("Upload a pic",type=['png', 'jpg'])
-    st.write("test")
     radio_functiom(input_image)
 
 if radio_values == "Photo from Camera":
