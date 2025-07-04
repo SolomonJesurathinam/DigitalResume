@@ -2,3 +2,5 @@ Pillow==11.2.1
 streamlit==1.46.1
 groq==0.29.0
 scikit-learn==1.7.0
+tensorflow==2.19.0
+opencv-python==4.11.0.86

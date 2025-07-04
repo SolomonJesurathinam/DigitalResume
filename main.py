@@ -20,6 +20,12 @@ chatbot_page = st.Page(
     icon="🖥️"
 )
 
+age_gender_page = st.Page(
+    page="views/age_gender.py",
+    title="Age Gender Prediction",
+    icon="🧒"
+)
+
 crop_page = st.Page(
     page="views/Crop Recommendation.py",
     title="Crop Recommendation",
@@ -36,7 +42,7 @@ fifa_22 = st.Page(
 pg = st.navigation(
     {
         "Info":[about_page],
-        "Projects":[ml_project_page,chatbot_page,crop_page,fifa_22]
+        "Projects":[ml_project_page,chatbot_page,crop_page,fifa_22,age_gender_page]
     }
 )
 
