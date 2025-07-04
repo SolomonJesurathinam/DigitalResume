@@ -4,3 +4,4 @@ groq==0.29.0
 scikit-learn==1.7.0
 tensorflow==2.19.0
 opencv-python==4.11.0.86
+streamlit-webrtc==0.63.3

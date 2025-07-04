@@ -6,6 +6,7 @@ from tensorflow.keras.models import load_model
 import cv2
 import numpy as np
 import os
+from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
 
 current_dir = Path(__file__).parent if "__file__" in locals() else Path.cwd()
 gender_path = current_dir.parent / "assets" / "models" /"gender_model_final.keras"
@@ -48,7 +49,7 @@ def predict(image):
 
         # Gender and Emotion Prediction
         gender,age = predict_image(gray_face_img)
-        cv2.putText(image, str(gender," - ",age), (x, y - 30), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2, cv2.LINE_AA)
+        cv2.putText(image, str(gender)+" - "+str(age), (x, y - 30), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2, cv2.LINE_AA)
     return image
 
 def radio_functiom(input_image):
@@ -59,7 +60,7 @@ def radio_functiom(input_image):
         output = predict(cv2_img)
         st.image(output)
 
-radio_values = st.radio(label="Prediction",options= ("Upload a picture","Photo from Camera"))
+radio_values = st.radio(label="Prediction",options= ("Upload a picture","Photo from Camera", "Live Feed"))
 if radio_values == "Upload a picture":
     input_image = st.file_uploader("Upload a pic",type=['png', 'jpg'])
     radio_functiom(input_image)
@@ -67,3 +68,36 @@ if radio_values == "Upload a picture":
 if radio_values == "Photo from Camera":
     input_image = st.camera_input("Take a Picture to predict")
     radio_functiom(input_image) 
+
+
+if radio_values == "Live Feed":
+    class VideoProcessor(VideoTransformerBase):
+        def transform(self, frame):
+            img = frame.to_ndarray(format="bgr24")
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            face_cascade = cv2.CascadeClassifier(classifier)
+            faces = face_cascade.detectMultiScale(gray, 1.1, 5)
+
+            for (x, y, w, h) in faces:
+                face_gray = gray[y:y+h, x:x+w]
+                face_input = load_and_preprocess_image(face_gray)
+
+                gender_pred = gender_model.predict(face_input)
+                age_pred = age_model.predict(face_input)
+
+                gender = "Female" if gender_pred[0][0] > 0.5 else "Male"
+                age = int(np.round(age_pred.flatten()[0] * 116))
+
+                label = f"{gender}, {age}"
+                cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 255), 2)
+                cv2.putText(img, label, (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0,255,0), 2)
+
+            return img
+
+    webrtc_streamer(
+    key="age-gender-stream",
+    video_processor_factory=VideoProcessor,
+    media_stream_constraints={"video": {"width": 320, "height": 240}, "audio": False},
+    # media_stream_constraints={"video": True, "audio": False},
+    async_processing=True,
+)

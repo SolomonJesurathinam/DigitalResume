@@ -43,7 +43,7 @@ pg = st.navigation(
     {
         "Info":[about_page],
         "Projects":[ml_project_page,chatbot_page,crop_page,fifa_22,age_gender_page]
-    }
+    },position="sidebar"
 )
 
 st.logo("assets/logo.png")
