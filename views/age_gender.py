@@ -97,7 +97,38 @@ if radio_values == "Live Feed":
     webrtc_streamer(
     key="age-gender-stream",
     video_processor_factory=VideoProcessor,
-    media_stream_constraints={"video": {"width": 320, "height": 240}, "audio": False},
-    # media_stream_constraints={"video": True, "audio": False},
+    # media_stream_constraints={"video": {"width": 320, "height": 240}, "audio": False},
+    media_stream_constraints={"video": True, "audio": False},
     async_processing=True,
 )
+
+with st.sidebar.expander("🔍 Overview", expanded=True):
+    st.write("""
+    This app predicts **Gender** and **Age** from a human face using two deep learning models trained on the **UTKFace Dataset**.
+    """)
+    # ---
+
+with st.sidebar.expander("📘 🧠 Models Used", expanded=True):
+    st.write("""
+    - **Gender Prediction Model**  
+    - Input: 48x48 grayscale face image  
+    - Output: Binary (0 = Male, 1 = Female)
+
+    - **Age Prediction Model**  
+    - Input: 48x48 grayscale face image  
+    - Output: Normalized float (scaled to [0, 1])  
+    - Final Age = Predicted output × 116 """)
+
+
+with st.sidebar.expander("📓 Notebook", expanded=False):
+    st.write("""
+    - Training Code (Gender & Age Models):  
+    [🔗 View on GitHub](hhttps://github.com/SolomonJesurathinam/JuypterProjects/blob/master/2025/ageGender/AgeGender-final.ipynb) """)
+
+with st.sidebar.expander("🧾 Credits", expanded=False):
+    st.write("""
+    - Face Detection: OpenCV Haar Cascade  
+    - Models: TensorFlow / Keras  
+    - Dataset: UTKFace  
+    - UI: Streamlit
+    """)
