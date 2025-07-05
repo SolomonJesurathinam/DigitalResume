@@ -12,7 +12,6 @@ MODEL = current_dir.parent / "data" / "colorize" / "colorization_release_v2.caff
 
 #Load the models
 net = cv2.dnn.readNetFromCaffe(PROTOTXT, MODEL)
-st.write(MODEL)
 pts = np.load(POINTS)
 
 st.title("Colorize Black and White Images")
