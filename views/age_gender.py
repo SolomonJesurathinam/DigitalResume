@@ -6,7 +6,18 @@ from tensorflow.keras.models import load_model
 import cv2
 import numpy as np
 import os
-from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
+import av
+from streamlit_webrtc import (
+    WebRtcMode,
+    webrtc_streamer,
+    __version__ as st_webrtc_version,
+)
+
+current_dir = Path(__file__).parent if "__file__" in locals() else Path.cwd()
+css_file = current_dir.parent / "styles" / "main.css"
+
+with open(css_file) as f:
+    st.markdown("<style>{}</style>".format(f.read()),unsafe_allow_html=True)
 
 current_dir = Path(__file__).parent if "__file__" in locals() else Path.cwd()
 gender_path = current_dir.parent / "assets" / "models" /"gender_model_final.keras"
@@ -69,38 +80,36 @@ if radio_values == "Photo from Camera":
     input_image = st.camera_input("Take a Picture to predict")
     radio_functiom(input_image) 
 
+def video_frame_callback(frame: av.VideoFrame) -> av.VideoFrame:
+    image = frame.to_ndarray(format="bgr24")
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    faces = face_cascade.detectMultiScale(gray, 1.1, 5)
+
+    for (x, y, w, h) in faces:
+        face_gray = gray[y:y+h, x:x+w]
+        face_input = load_and_preprocess_image(face_gray)
+
+        gender_pred = gender_model.predict(face_input)
+        age_pred = age_model.predict(face_input)
+
+        gender = "Female" if gender_pred[0][0] > 0.5 else "Male"
+        age = int(np.round(age_pred.flatten()[0] * 116))
+
+        label = f"{gender}, {age}"
+        cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 255), 2)
+        cv2.putText(image, label, (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0,255,0), 2)
+
+    return av.VideoFrame.from_ndarray(image, format="bgr24")
 
 if radio_values == "Live Feed":
-    class VideoProcessor(VideoTransformerBase):
-        def transform(self, frame):
-            img = frame.to_ndarray(format="bgr24")
-            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            face_cascade = cv2.CascadeClassifier(classifier)
-            faces = face_cascade.detectMultiScale(gray, 1.1, 5)
-
-            for (x, y, w, h) in faces:
-                face_gray = gray[y:y+h, x:x+w]
-                face_input = load_and_preprocess_image(face_gray)
-
-                gender_pred = gender_model.predict(face_input)
-                age_pred = age_model.predict(face_input)
-
-                gender = "Female" if gender_pred[0][0] > 0.5 else "Male"
-                age = int(np.round(age_pred.flatten()[0] * 116))
-
-                label = f"{gender}, {age}"
-                cv2.rectangle(img, (x, y), (x+w, y+h), (0, 255, 255), 2)
-                cv2.putText(img, label, (x, y-10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0,255,0), 2)
-
-            return img
-
+    face_cascade = cv2.CascadeClassifier(classifier)
     webrtc_streamer(
     key="age-gender-stream",
-    video_processor_factory=VideoProcessor,
-    # media_stream_constraints={"video": {"width": 320, "height": 240}, "audio": False},
+    mode=WebRtcMode.SENDRECV,
+    video_frame_callback=video_frame_callback,
     media_stream_constraints={"video": True, "audio": False},
     async_processing=True,
-)
+)   
 
 with st.sidebar.expander("🔍 Overview", expanded=True):
     st.write("""

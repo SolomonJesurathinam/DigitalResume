@@ -8,10 +8,10 @@ about_page = st.Page(
     default=True
 )
 
-ml_project_page = st.Page(
-    page="views/ml_projects.py",
-    title="Ml Projects",
-    icon=":material/bar_chart:",
+cartoonify_page = st.Page(
+    page="views/cartoonify.py",
+    title="Cartoonify",
+    icon="💭",
 )
 
 chatbot_page = st.Page(
@@ -38,11 +38,24 @@ fifa_22 = st.Page(
     icon="⚽"
 )
 
+pencil_page = st.Page(
+    page="views/pencil_sketch.py",
+    title="Pencil Sketch",
+    icon="✏️"
+)
+
+colorize_page = st.Page(
+    page="views/colorize_bw.py",
+    title="Colorize BW",
+    icon="🎨"
+)
+
 # --- NAVIGATION ---
 pg = st.navigation(
     {
         "Info":[about_page],
-        "Projects":[ml_project_page,chatbot_page,crop_page,fifa_22,age_gender_page]
+        "ML Projects":[chatbot_page,crop_page,fifa_22,age_gender_page],
+        "OpenCV":[cartoonify_page,pencil_page,colorize_page],
     },position="sidebar"
 )
 
