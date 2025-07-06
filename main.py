@@ -50,14 +50,24 @@ colorize_page = st.Page(
     icon="🎨"
 )
 
+framework_page = st.Page(
+    page="views/automation_framework.py",
+    title="Frameworks",
+    icon="📚")
+
 # --- NAVIGATION ---
 pg = st.navigation(
     {
         "Info":[about_page],
         "ML Projects":[chatbot_page,crop_page,fifa_22,age_gender_page],
         "OpenCV":[cartoonify_page,pencil_page,colorize_page],
+        "Automation":[framework_page]   
     },position="sidebar"
 )
+
+layout_mode = "wide" if pg.url_path in ["automation_framework","FIFA_22_Simulator","chatbot"] else "centered"
+st.set_page_config(layout=layout_mode)
+
 
 st.logo("assets/logo.png")
 st.sidebar.text("Made with ❤️ by Solomon")
