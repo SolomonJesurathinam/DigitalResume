@@ -55,13 +55,19 @@ framework_page = st.Page(
     title="Frameworks",
     icon="📚")
 
+dashboard_page = st.Page(
+    page="views/dashboard.py",
+    title="Automation Dashboard",
+    icon="💨"
+)
+
 # --- NAVIGATION ---
 pg = st.navigation(
     {
         "Info":[about_page],
         "ML Projects":[chatbot_page,crop_page,fifa_22,age_gender_page],
         "OpenCV":[cartoonify_page,pencil_page,colorize_page],
-        "Automation":[framework_page]   
+        "Automation":[framework_page,dashboard_page]   
     },position="sidebar"
 )
 
