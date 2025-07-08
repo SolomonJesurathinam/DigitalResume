@@ -3,8 +3,8 @@ import streamlit as st
 # Info Section
 about_page = st.Page(
     page="pages_about/about_me.py",
-    title="About Me",
-    icon=":material/account_circle:",
+    title="Solomon's Digital Portfolio",
+    icon="🚀",
     default=True
 )
 
@@ -81,8 +81,8 @@ pg = st.navigation(
 # ] else "centered"
 
 st.set_page_config(
-    page_title="Solomon's Digital Portfolio",
-    page_icon="🚀",
+    # page_title="Solomon's Digital Portfolio",
+    # page_icon="🚀",
     # layout=layout_mode,
     initial_sidebar_state="expanded"
 )
