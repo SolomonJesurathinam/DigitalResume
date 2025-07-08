@@ -76,14 +76,14 @@ pg = st.navigation(
     position="top"
 )
 
-layout_mode = "wide" if pg.url_path in [
-    "automation_framework", "FIFA_22_Simulator", "chatbot", "dashboard", "age_gender"
-] else "centered"
+# layout_mode = "wide" if pg.url_path in [
+#     "automation_framework", "FIFA_22_Simulator", "chatbot", "dashboard", "age_gender","about_me"
+# ] else "centered"
 
 st.set_page_config(
     page_title="Solomon's Digital Portfolio",
     page_icon="🚀",
-    layout=layout_mode,
+    # layout=layout_mode,
     initial_sidebar_state="expanded"
 )
 

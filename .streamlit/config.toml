@@ -1,16 +1,16 @@
 [theme]
-base = "dark"
-primaryColor = "#d33682"               # Stylish magenta
-backgroundColor = "#002b36"            # Solarized dark background
-textColor = "#ffffff"                  # Bright white text
+base = "light"                         # Changed to light for better compatibility
+primaryColor = "#667eea"               # Your gradient primary color
+backgroundColor = "#f5f7fa"            # Light gradient background
+textColor = "#2c3e50"                  # Dark text for readability
 font = "sans serif"                    # Clean, modern look
-borderColor = "#3a4b50"                # Soft contrast borders
-borderRadius = 0.5  
-linkColor="darkOrchid"                  
+borderColor = "#667eea"                # Match primary color
+borderRadius = 0.5
+linkColor = "#764ba2"                  # Secondary gradient color
 
 [theme.sidebar]
-backgroundColor = "#1e3a40"            # Teal-gray for sidebar
-textColor = "#f8f8f2"                  # Slightly softer white for sidebar
+backgroundColor = "#ffffff"            # White sidebar
+textColor = "#2c3e50"                  # Dark text for sidebar
 font = "sans serif"                    # Match body font
-borderColor = "#4a5b60"                # Sidebar border
-borderRadius = 0.5                     # Keep consistency
+borderColor = "#667eea"                # Match primary color
+borderRadius = 0.5
