@@ -71,13 +71,21 @@ dashboard_page = st.Page(
     icon="📊"                               # Chart icon (better than wind)
 )
 
+#Android section
+android_page = st.Page(
+    page="pages_android/android_apps.py",
+    title="Android Apps",
+    icon="📱"  
+)                            
+
 # --- NAVIGATION WITH BEAUTIFUL SECTION ICONS ---
 pg = st.navigation(
     {
         "ℹ️ About": [about_page],
         "🧠 ML Projects": [chatbot_page, crop_page, fifa_22, age_gender_page, pdf_classify],
         "👁️ Computer Vision": [cartoonify_page, pencil_page, colorize_page],
-        "⚡ Automation": [framework_page, dashboard_page]
+        "⚡ Automation": [framework_page, dashboard_page],
+        "📱 Android": [android_page]
     },
     position="top"
 )

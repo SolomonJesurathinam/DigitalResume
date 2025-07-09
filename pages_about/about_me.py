@@ -25,7 +25,7 @@ LOCATION = "Chennai, Tamil Nadu, India"
 EXPERIENCE_YEARS = "11+"
 
 SOCIAL_MEDIA = {
-    "LinkedIn": "https://www.linkedin.com/in/solomon-jesurathinam-a3a80723/",
+    "LinkedIn": "https://www.linkedin.com/in/solomon-jesurathinam/",
     "GitHub": "https://github.com/SolomonJesurathinam",
 }
 
