@@ -33,6 +33,12 @@ age_gender_page = st.Page(
     icon="👤"                               # Person icon (better than child)
 )
 
+pdf_classify = st.Page(
+    page="pages_mlProjects/pdf_classification.py",
+    title="PDF Document Classifier",     
+    icon="📄"                              
+)
+
 # OpenCV Section (Enhanced Icons)
 cartoonify_page = st.Page(
     page="pages_opencv/cartoonify.py",
@@ -69,7 +75,7 @@ dashboard_page = st.Page(
 pg = st.navigation(
     {
         "ℹ️ About": [about_page],
-        "🧠 ML Projects": [chatbot_page, crop_page, fifa_22, age_gender_page],
+        "🧠 ML Projects": [chatbot_page, crop_page, fifa_22, age_gender_page, pdf_classify],
         "👁️ Computer Vision": [cartoonify_page, pencil_page, colorize_page],
         "⚡ Automation": [framework_page, dashboard_page]
     },

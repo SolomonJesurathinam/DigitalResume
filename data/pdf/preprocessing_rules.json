@@ -1,0 +1,1 @@
+{"lowercase": true, "regex_replace": [{"pattern": "[^a-z\\s]", "replacement": ""}, {"pattern": "\\s+", "replacement": " "}]}
