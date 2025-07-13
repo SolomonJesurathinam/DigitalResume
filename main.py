@@ -39,6 +39,12 @@ pdf_classify = st.Page(
     icon="📄"                              
 )
 
+face_attendance_page = st.Page(
+    page="pages_mlProjects/face_attendance.py",
+    title="Face Attendance System",         # More descriptive title
+    icon="🕵️‍♂️"                             # Detective (better than face
+    )
+
 # OpenCV Section (Enhanced Icons)
 cartoonify_page = st.Page(
     page="pages_opencv/cartoonify.py",
@@ -82,7 +88,7 @@ android_page = st.Page(
 pg = st.navigation(
     {
         "ℹ️ About": [about_page],
-        "🧠 ML Projects": [chatbot_page, crop_page, fifa_22, age_gender_page, pdf_classify],
+        "🧠 ML Projects": [chatbot_page, crop_page, fifa_22, age_gender_page, pdf_classify, face_attendance_page],
         "👁️ Computer Vision": [cartoonify_page, pencil_page, colorize_page],
         "⚡ Automation": [framework_page, dashboard_page],
         "📱 Android": [android_page]
